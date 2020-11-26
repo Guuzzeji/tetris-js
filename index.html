@@ -1,45 +1,101 @@
 <html>
-<head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-  <title>Tetris</title>
-  <style>
-    button{
-      float:right; }
-    #title{
-      text-align:center;
-      font-style:italic;
-      font:2em sans;
-    }
-    #controls #restart:hover{
-      text-decoration:underline;
-      cursor:pointer;
-    }
-    #controls > *{
-      text-align:center;
-      font:1.2em sans;
-    }
-    #controls, #title{
-      margin-top:10px;
-      width:410px;
-      margin:auto;
-    }
-    #controls div:first-child {
-      float:left;
-    }
-    #controls #restart {
-      float:right;
-    }
-    canvas{
-      display:block;
-      margin:auto; 
-    }
-  </style>
+<!DOCTYPE html>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<title>Cursed Tetris</title>
+<style>
+  button {
+    float: right;
+  }
+
+  #title {
+    text-align: center;
+    font: 2em sans;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+  #controls #restart:hover {
+    text-decoration: underline;
+    cursor: pointer;
+  }
+
+  #controls>* {
+    text-align: center;
+    font: 1.2em sans;
+  }
+
+  #controls,
+  #title {
+    margin-top: 10px;
+    width: 410px;
+    margin: auto;
+  }
+
+  #controls div:first-child {
+    float: left;
+  }
+
+  #controls #restart {
+    float: right;
+  }
+
+  canvas {
+    display: block;
+    margin: auto;
+    width: 500px;
+    height: 500px;
+  }
+
+  html {
+    color: white;
+    background-color: burlywood;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+  /* width */
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #888;
+  }
+
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+</style>
 </head>
+
 <body>
-<div id="title">TETRIS</div>
-<canvas id="tetrisCanvas"></canvas>
-<div id="controls"><div>Score: <span id="score">0</span></div> <div id="restart">Restart Game</div>
-<div id="text"><br >Controls: arrows = move, space = drop,<br>x = speed up, z = store peice</div>
+  <br>
+  <div id="title"><b>Tetris WTF Edition</b></div>
+  <br>
+  <canvas id="tetrisCanvas"></canvas>
+  <br>
+  <div id="controls">
+    <div style="font-family: Arial, Helvetica, sans-serif;">Score: <span
+        style="font-family: Arial, Helvetica, sans-serif;" id="score">0</span></div>
+    <div id="restart" style="font-family: Arial, Helvetica, sans-serif;">Restart Game</div>
+    <br>
+    <div id="text" style="font-family: Arial, Helvetica, sans-serif;">
+      <br>Arrows = move
+      <br> A = left
+      <br> D = right
+      <br> Space =
+      drop <br> Down-arrow =
+      speed up</div>
+    <br>
 </body>
 <script src="game.js"></script>
+
 </html>

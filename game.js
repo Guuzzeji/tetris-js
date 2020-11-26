@@ -1,22 +1,21 @@
-"use strict"
-
 var Tetris = function (parentElement) {
 
   var board = parentElement,
-      scoreTag = document.getElementById("score"),
-      canvasOffset = {}
-      canvasOffset.x = 200,
-      canvasOffset.y = 2;
+    scoreTag = document.getElementById("score"),
+    canvasOffset = {}
+  canvasOffset.x = 200,
+    canvasOffset.y = 2;
 
   var score,
-      shape,
-      delay,
-      interval,
-      context,
-      queue,
-      storedShape,
-      gameOver,
-      boardState;
+    shape,
+    delay,
+    interval,
+    context,
+    queue,
+    gameOver,
+    boardState;
+
+  let rng_num = 3
 
   var getShadowPos = function () {
     var y = shape.corner.y;
@@ -30,23 +29,133 @@ var Tetris = function (parentElement) {
   }
 
   var createShape = function () {
-    var shapeSkeletons = [
-      {size:4, cells:[{y:1, x:0},{y:1, x:1},{y:1, x:2},{y:1, x:3}], color: "red"},
-      {size:3, cells:[{y:0, x:0},{y:0, x:1},{y:0, x:2},{y:1, x:2}], color: "green"},
-      {size:3, cells:[{y:0, x:0},{y:0, x:1},{y:0, x:2},{y:1, x:0}], color: "blue"},
-      {size:2, cells:[{y:0, x:0},{y:0, x:1},{y:1, x:0},{y:1, x:1}], color: "purple"},
-      {size:3, cells:[{y:0, x:1},{y:0, x:2},{y:1, x:0},{y:1, x:1}], color: "magenta"},
-      {size:3, cells:[{y:0, x:0},{y:0, x:1},{y:0, x:2},{y:1, x:1}], color: "orange"},
-      {size:3, cells:[{y:0, x:0},{y:0, x:1},{y:1, x:1},{y:1, x:2}], color: "cyan"}
+    var shapeSkeletons = [{
+        size: 4,
+        cells: [{
+          y: Math.floor(Math.random() * rng_num),
+          x: Math.floor(Math.random() * rng_num)
+        }, {
+          y: Math.floor(Math.random() * rng_num),
+          x: Math.floor(Math.random() * rng_num)
+        }, {
+          y: Math.floor(Math.random() * rng_num),
+          x: Math.floor(Math.random() * rng_num)
+        }, {
+          y: Math.floor(Math.random() * rng_num),
+          x: Math.floor(Math.random() * rng_num)
+        }],
+        color: "red"
+      },
+      {
+        size: 3,
+        cells: [{
+          y: Math.floor(Math.random() * rng_num),
+          x: Math.floor(Math.random() * rng_num)
+        }, {
+          y: Math.floor(Math.random() * rng_num),
+          x: Math.floor(Math.random() * rng_num)
+        }, {
+          y: Math.floor(Math.random() * rng_num),
+          x: Math.floor(Math.random() * rng_num)
+        }, {
+          y: Math.floor(Math.random() * rng_num),
+          x: Math.floor(Math.random() * rng_num)
+        }],
+        color: "green"
+      },
+      {
+        size: 3,
+        cells: [{
+          y: Math.floor(Math.random() * rng_num),
+          x: Math.floor(Math.random() * rng_num)
+        }, {
+          y: Math.floor(Math.random() * rng_num),
+          x: Math.floor(Math.random() * rng_num)
+        }, {
+          y: Math.floor(Math.random() * rng_num),
+          x: Math.floor(Math.random() * rng_num)
+        }, {
+          y: Math.floor(Math.random() * rng_num),
+          x: Math.floor(Math.random() * rng_num)
+        }],
+        color: "blue"
+      },
+      {
+        size: 2,
+        cells: [{
+          y: Math.floor(Math.random() * rng_num),
+          x: Math.floor(Math.random() * rng_num)
+        }, {
+          y: Math.floor(Math.random() * rng_num),
+          x: Math.floor(Math.random() * rng_num)
+        }, {
+          y: Math.floor(Math.random() * rng_num),
+          x: Math.floor(Math.random() * rng_num)
+        }, {
+          y: Math.floor(Math.random() * rng_num),
+          x: Math.floor(Math.random() * rng_num)
+        }],
+        color: "purple"
+      },
+      {
+        size: 3,
+        cells: [{
+          y: Math.floor(Math.random() * rng_num),
+          x: Math.floor(Math.random() * rng_num)
+        }, {
+          y: Math.floor(Math.random() * rng_num),
+          x: Math.floor(Math.random() * rng_num)
+        }, {
+          y: Math.floor(Math.random() * rng_num),
+          x: Math.floor(Math.random() * rng_num)
+        }, {
+          y: Math.floor(Math.random() * rng_num),
+          x: Math.floor(Math.random() * rng_num)
+        }],
+        color: "magenta"
+      },
+      {
+        size: 3,
+        cells: [{
+          y: Math.floor(Math.random() * rng_num),
+          x: Math.floor(Math.random() * rng_num)
+        }, {
+          y: Math.floor(Math.random() * rng_num),
+          x: Math.floor(Math.random() * rng_num)
+        }, {
+          y: Math.floor(Math.random() * rng_num),
+          x: Math.floor(Math.random() * rng_num)
+        }, {
+          y: Math.floor(Math.random() * rng_num),
+          x: Math.floor(Math.random() * rng_num)
+        }],
+        color: "orange"
+      },
+      {
+        size: 3,
+        cells: [{
+          y: Math.floor(Math.random() * rng_num),
+          x: Math.floor(Math.random() * rng_num)
+        }, {
+          y: Math.floor(Math.random() * rng_num),
+          x: Math.floor(Math.random() * rng_num)
+        }, {
+          y: Math.floor(Math.random() * rng_num),
+          x: Math.floor(Math.random() * rng_num)
+        }, {
+          y: Math.floor(Math.random() * rng_num),
+          x: Math.floor(Math.random() * rng_num)
+        }],
+        color: "cyan"
+      }
     ];
-    var newShape =  shapeSkeletons[Math.floor(Math.random()*shapeSkeletons.length)];
+    var newShape = shapeSkeletons[Math.floor(Math.random() * shapeSkeletons.length)];
     newShape.storable = true;
     newShape.corner = {};
     newShape.corner.y = 0;
     if (newShape.size == 2) {
       newShape.corner.x = 4;
-    }
-    else {
+    } else {
       newShape.corner.x = 3;
     }
     if (newShape.size == 4) {
@@ -55,7 +164,7 @@ var Tetris = function (parentElement) {
     return newShape;
   }
 
-  var rotateCW = function(){
+  var rotateCW = function () {
     shape.storable = false;
     for (var i = 0; i < 4; ++i) {
       var y = shape.cells[i].x;
@@ -66,41 +175,36 @@ var Tetris = function (parentElement) {
     if (checkBorders() && noOverlap()) {
       render();
       return true;
-    }
-    else if (!checkBorders()) {
+    } else if (!checkBorders()) {
       rotateCCW();
       if (shape.corner.x < 0) {
         ++shape.corner.x;
         if (!rotateCW()) {
           --shape.corner.x;
           return false;
-        }
-        else {
+        } else {
           return true;
         }
-      }
-      else {
+      } else {
         --shape.corner.x;
         if (!rotateCW()) {
           ++shape.corner.x;
           return false;
-        }
-        else {
+        } else {
           return true;
         }
       }
-    }
-    else {
+    } else {
       rotateCCW();
       render();
       return false;
     }
   }
 
-  var rotateCCW = function(){
+  var rotateCCW = function () {
     shape.storable = false;
     for (var i = 0; i < 4; ++i) {
-      var y = shape.size - 1  - shape.cells[i].x;
+      var y = shape.size - 1 - shape.cells[i].x;
       var x = shape.cells[i].y;
       shape.cells[i].y = y;
       shape.cells[i].x = x;
@@ -108,43 +212,38 @@ var Tetris = function (parentElement) {
     if (checkBorders() && noOverlap()) {
       render();
       return true;
-    }
-    else if (!checkBorders()) {
+    } else if (!checkBorders()) {
       rotateCW();
       if (shape.corner.x < 0) {
         ++shape.corner.x;
         if (!rotateCCW()) {
           --shape.corner.x;
           return false;
-        }
-        else {
+        } else {
           return true;
         }
-      }
-      else {
+      } else {
         --shape.corner.x;
         if (!rotateCCW()) {
           ++shape.corner.x;
           return false;
-        }
-        else {
+        } else {
           return true;
         }
       }
-    }
-    else {
+    } else {
       rotateCW();
       render();
       return false;
     }
   }
-  var drop = function(){
+  var drop = function () {
     while (noOverlap()) {
       ++shape.corner.y;
     }
     --shape.corner.y;
     saveShape();
-    setTimeout(function() {
+    setTimeout(function () {
       clearRows();
     }, 0);
     shape = queue.shift();
@@ -152,7 +251,7 @@ var Tetris = function (parentElement) {
     render();
   }
 
-  var checkBorders = function(){
+  var checkBorders = function () {
     for (var i = 0; i < 4; ++i) {
       var posX = shape.cells[i].x + shape.corner.x;
       var posY = shape.cells[i].y + shape.corner.y;
@@ -163,7 +262,7 @@ var Tetris = function (parentElement) {
     return true;
   }
 
-  var noOverlap = function(){
+  var noOverlap = function () {
     for (var i = 0; i < 4; ++i) {
       var posX = shape.cells[i].x + shape.corner.x;
       var posY = shape.cells[i].y + shape.corner.y;
@@ -174,22 +273,27 @@ var Tetris = function (parentElement) {
     return true;
   }
 
-  var clearRows = function(){
+  var clearRows = function () {
     var scoreToAdd = 10;
-    for (var y = 0; y < 20; ++ y) {
+    for (var y = 0; y < 20; ++y) {
       var flag = true;
-      for (var x = 0; x < 10; ++ x) {
-        if(boardState[y][x].occupied == false)
+      for (var x = 0; x < 10; ++x) {
+        if (boardState[y][x].occupied == false)
           flag = false;
       }
       if (flag) {
-        boardState.splice(y,1);
+        boardState.splice(y, 1);
         boardState.unshift([])
         for (var j = 0; j < 10; ++j) {
-          boardState[0][j] = {"occupied":false, "color":"white"};
+          boardState[0][j] = {
+            "occupied": false,
+            "color": "white"
+          };
         }
         score += scoreToAdd;
         scoreToAdd += 10;
+        console.log(score)
+        scoreTag.innerText = score
         if (delay > 80) {
           delay -= 5;
           clearInterval(interval);
@@ -199,25 +303,23 @@ var Tetris = function (parentElement) {
     }
   }
 
-  var moveLeft = function(){
+  var moveLeft = function () {
     shape.corner.x -= 1;
     if (checkBorders() && noOverlap()) {
       render();
       return true;
-    }
-    else {
+    } else {
       shape.corner.x += 1;
       return false;
     }
   }
 
-  var moveRight = function(){
+  var moveRight = function () {
     shape.corner.x += 1;
     if (checkBorders() && noOverlap()) {
       render();
       return true;
-    }
-    else {
+    } else {
       shape.corner.x -= 1;
       return false;
     }
@@ -230,8 +332,7 @@ var Tetris = function (parentElement) {
     if (posX == undefined || posY == undefined) {
       var xStart = shape.corner.x * 40 + canvasOffset.x;
       var yStart = shape.corner.y * 40 + canvasOffset.y;
-    }
-    else {
+    } else {
       var xStart = posX;
       var yStart = posY;
     }
@@ -255,20 +356,20 @@ var Tetris = function (parentElement) {
     context.stroke();
   }
 
-  var render = function() {
-    context.clearRect(0,0, board.width, board.height);
+  var render = function () {
+    context.clearRect(0, 0, board.width, board.height);
     context.lineWidth = "5";
 
     //render piece shadow
     var y_pos = getShadowPos() * 40 + canvasOffset.y;
-    var x_pos =shape.corner.x * 40 + canvasOffset.x;
-    drawShape (shape, x_pos, y_pos, false, '#DDD');
+    var x_pos = shape.corner.x * 40 + canvasOffset.x;
+    drawShape(shape, x_pos, y_pos, false, '#DDD');
     //draw stationary pieces
     for (var y = 0; y < boardState.length; ++y) {
       for (var x = 0; x < boardState[y].length; ++x) {
-        if (boardState[y][x].occupied === true) { 
+        if (boardState[y][x].occupied === true) {
           var color = boardState[y][x].color;
-          posY = canvasOffset.y  + y * 40;
+          posY = canvasOffset.y + y * 40;
           posX = canvasOffset.x + x * 40;
           drawSquare(posX, posY, color);
         }
@@ -277,13 +378,6 @@ var Tetris = function (parentElement) {
     //draw current shape
     drawShape(shape);
     //draw shapes in queue;
-    for (var i = 0; i < 3; ++i) {
-      drawShape(queue[i], canvasOffset.x + 420, 60 + 100 * i);
-    }
-    //draw stored shape;
-    if (storedShape !== undefined) {
-      drawShape(storedShape, canvasOffset.x + 420, 450);
-    }
     context.lineWidth = 1;
     for (var x = 0; x < 10; ++x) {
       context.beginPath();
@@ -297,41 +391,36 @@ var Tetris = function (parentElement) {
       context.lineTo(canvasOffset.x + 400, canvasOffset.y + y * 40);
       context.stroke();
     }
-    context.lineWidth = 5;
-    scoreTag.innerHTML = score;
-    context.beginPath();
-    context.font="40px Sans";
-    context.fillStyle = "black";
-    context.fillText("Next", canvasOffset.x + 420, 30);
-    context.fillText("Stored", canvasOffset.x + 420, 420);
     if (gameOver) {
-      context.fillStyle = "white";
-      context.fillRect(canvasOffset.x + 75, 260, 260,65);
-      context.rect(canvasOffset.x + 75, 260, 260, 65);
-      context.fillStyle = "black";
-      context.fillText("Game Over", canvasOffset.x + 90, 305);
+      alert('Game Over')
     }
     context.stroke();
     //draw board rectangle
     context.beginPath();
     var posY = canvasOffset.y;
     var posX = canvasOffset.x;
-    context.rect(posX, posY,400,800);
+    context.rect(posX, posY, 400, 800);
     context.stroke();
   }
 
-  var saveShape = function(){
+  var saveShape = function () {
     for (var i = 0; i < 4; ++i) {
-      var posY = shape.corner.y + shape.cells[i].y;
-      var posX = shape.corner.x + shape.cells[i].x;
-      boardState[posY][posX].color = shape.color;
-      boardState[posY][posX].occupied = true;
+      if (shape.cells[i] != undefined) {
+        console.log(shape.cells[i])
+        var posY = shape.corner.y + shape.cells[i].y;
+        var posX = shape.corner.x + shape.cells[i].x;
+        if (shape.color != undefined) {
+          boardState[posY][posX].color = shape.color;
+          boardState[posY][posX].occupied = true;
+        }
+
+      }
     }
   }
 
-  var tick = function(){
+  var tick = function () {
     ++shape.corner.y;
-    if(!checkBorders() || !noOverlap()){
+    if (!checkBorders() || !noOverlap()) {
       --shape.corner.y;
       saveShape();
       clearRows();
@@ -345,33 +434,14 @@ var Tetris = function (parentElement) {
     render();
   }
 
-  var storeShape = function () {
-    if (shape.storable == true) {
-      shape.storable = false;
-      if (storedShape == undefined) {
-        storedShape = shape;
-        storedShape.corner.y = 0;
-        storedShape.corner.x = 3;
-        shape = queue.shift();
-        queue.push(createShape());
-        render;
-      }
-      else {
-        var temp = shape;
-        shape = storedShape;
-        storedShape = temp;
-        storedShape.corner.y = 0;
-        storedShape.corner.x = 3;
-        render;
-      }
-    }
-  }
 
 
-  window.onkeydown = function (e){
+
+  window.onkeydown = function (e) {
     var code = e.keyCode ? e.keyCode : e.which;
+    console.log(code)
     if (!gameOver) {
-      switch (code){
+      switch (code) {
         case 32:
           drop();
           e.preventDefault();
@@ -380,7 +450,7 @@ var Tetris = function (parentElement) {
           moveLeft();
           e.preventDefault();
           break;
-        case 38:
+        case 68:
           rotateCW();
           e.preventDefault();
           break;
@@ -388,30 +458,30 @@ var Tetris = function (parentElement) {
           moveRight();
           e.preventDefault();
           break;
-        case 40:
+        case 65:
           rotateCCW();
           e.preventDefault();
           break;
-        case 88:
+        case 40:
           tick();
-          e.preventDefault();
-          break;
-        case 90:
-          storeShape();
           e.preventDefault();
           break;
       }
     }
   }
-  
-  return { start:function () {
+
+  return {
+    start: function () {
       boardState = [];
       if (interval)
         clearInterval(interval);
       for (var y = 0; y < 20; ++y) {
         boardState[y] = [];
         for (var x = 0; x < 20; ++x)
-          boardState[y][x] = {"occupied":false, "color":"white"};
+          boardState[y][x] = {
+            "occupied": false,
+            "color": "white"
+          };
       }
       gameOver = false;
       queue = [];
@@ -419,9 +489,8 @@ var Tetris = function (parentElement) {
       queue.push(createShape());
       queue.push(createShape());
       score = 0;
-      storedShape = undefined;
       shape = createShape();
-      delay = 300;
+      delay = 400;
       interval = setInterval(tick.bind(this), delay);
       board.width = 800;
       board.height = 804;
@@ -435,6 +504,6 @@ var tetris = Tetris(document.getElementById("tetrisCanvas"));
 tetris.start();
 var restart = document.getElementById("restart");
 
-restart.onclick = function(){
+restart.onclick = function () {
   tetris.start()
 }
