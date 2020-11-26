@@ -6,7 +6,7 @@ Everything is mess up with this version of Tetris.
 ![YEET](./readme_img/example.PNG "Logo Title Text 1")
 
 ## Play
-[Play It Here]()
+[Play It Here](https://guuzzeji.github.io/tetris-js/)
 
 <br>
 
